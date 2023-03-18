@@ -4,13 +4,13 @@ In the browser go to: http://localhost:5000/login
 
 Admin Log in
 username: admin
-password: 1234
+password: admin
 * Can access /admin, /granted
 
 Users Log in
-username: alex, mari, anton
-Password: "test" for all users
-* Can access only /granted
+username: user1, user2, user3
+Password for all users: test 
+* Can access only /granted and not /admin
 
 Set Up:
 npm install node.js

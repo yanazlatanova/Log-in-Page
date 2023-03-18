@@ -9,7 +9,7 @@ db.serialize(() => {
     db.run('INSERT INTO users (username, role, password) VALUES ("user1", "student", "$2b$10$H8RhcGaR7YZ72.X5lcUBNOQec39/fw3dCvZo/ocTQK1xQ0i46A2ym")')    
     db.run('INSERT INTO users (username, role, password) VALUES ("user2", "student", "$2b$10$H8RhcGaR7YZ72.X5lcUBNOQec39/fw3dCvZo/ocTQK1xQ0i46A2ym")')
     db.run('INSERT INTO users (username, role, password) VALUES ("user3", "teacher", "$2b$10$H8RhcGaR7YZ72.X5lcUBNOQec39/fw3dCvZo/ocTQK1xQ0i46A2ym")')  
-    db.run('INSERT INTO users (username, role, password) VALUES ("admin", "admin", "$2b$10$WGc4SaSxe25Hdvh6P/qlXeZsbvnghm1HSZsxSonr/rb1O3j9UUrWy")')
+    db.run('INSERT INTO users (username, role, password) VALUES ("admin", "admin", "$2b$10$/tl26I/fhZWstZ/6ju8CS.OtA7Ggn9hxNG1iooSKE9WOCFIO5j//O")')
 })
 
 const getUsers = () => {
@@ -22,10 +22,6 @@ const getUsers = () => {
             }
         });
     })
-}
-
-const addUser = (username, password) => {
-    db.run(`INSERT INTO users VALUES ("${username}", "${password}");`);
 }
 
 async function getUserByName(username) {
@@ -47,5 +43,5 @@ async function getUserByName(username) {
     }
 }
 
-module.exports = { getUsers, addUser, getUserByName };
+module.exports = { getUsers, getUserByName };
 

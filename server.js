@@ -27,11 +27,11 @@ app.listen(5000, () => { console.log("Server listening on port: " + 5000); })
 function verifyAdmin(req, res, next) {
 
    if (current_Role == "") {
-      res.redirect("/login/error")      
+      res.redirect("/identify/error")      
    } else if (current_Role == "admin") {
       next()
    } else {
-      res.redirect("/login/error")
+      res.redirect("/identify/error")
    }
 }
 
@@ -41,16 +41,16 @@ app.get('/admin', verifyAdmin, async (req, res) => {
 })
 
 app.get('/', async (req, res) => {
-   res.redirect("/login")
+   res.redirect("/identify")
 })
 
-app.get('/login', async (req, res) => {
-   res.render('login.ejs', { error: '' })
+app.get('/identify', async (req, res) => {
+   res.render('identify.ejs', { error: '' })
 })
 
-app.get('/login/error', async (req, res) => {   
+app.get('/identify/error', async (req, res) => {   
    // Print an error msg if the user wants to access pages without logged in
-   res.render('login.ejs', { error: "Denied access! Please, try to log in with a different role!" })
+   res.render('identify.ejs', { error: "Denied access! Please, try to log in with a different role!" })
 })
 
 function authenticateToken(req, res, next) {
@@ -59,11 +59,11 @@ function authenticateToken(req, res, next) {
    // console.log('Is jwt verified ', jwt.verify(current_Token, process.env.ACCESS_TOKEN_SECRET));
 
    if (current_Token == "") {
-      res.redirect("/login/error")      
+      res.redirect("/identify/error")      
    } else if (jwt.verify(current_Token, process.env.ACCESS_TOKEN_SECRET)) {
       next()      
    } else {
-      res.redirect("/login/error")
+      res.redirect("/identify/error")
    }
    // console.log("we are in the authentication controll function");
    // next()   
@@ -78,11 +78,11 @@ app.get('/granted', authenticateToken, async (req, res) => {
 // Grade 4
 function verifyTeacher(req, res, next) {
    if (current_Role == "") {
-      res.redirect("/login/error")      
+      res.redirect("/identify/error")      
    } else if (current_Role == "teacher" || current_Role == "admin") {
       next()
    } else {
-      res.redirect("/login/error")
+      res.redirect("/identify/error")
    }
 }
 
@@ -93,11 +93,11 @@ app.get('/teacher', verifyTeacher, async (req, res) => {
 
 function verifyStudent1(req, res, next) {
    if (current_Role == "") {
-      res.redirect("/login/error")      
+      res.redirect("/identify/error")      
    } else if (current_Role == "teacher" || current_Role == "admin" || current_Username == "user1") {
       next()
    } else {
-      res.redirect("/login/error")
+      res.redirect("/identify/error")
    }
 }
 
@@ -108,11 +108,11 @@ app.get('/student1', verifyStudent1, async (req, res) => {
 
 function verifyStudent2(req, res, next) {
    if (current_Role == "") {
-      res.redirect("/login/error")      
+      res.redirect("/identify/error")      
    } else if (current_Role == "teacher" || current_Role == "admin" || current_Username == "user2") {
       next()
    } else {
-      res.redirect("/login/error")
+      res.redirect("/identify/error")
    }
 }
 
