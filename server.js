@@ -122,7 +122,7 @@ app.get('/student2', verifyStudent2, async (req, res) => {
 })
 
 // POST
-app.post('/login', async (req, res) => {
+app.post('/identify', async (req, res) => {
 
    try {
       // Get the first user with the same username
