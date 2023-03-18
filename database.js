@@ -6,11 +6,9 @@ const db = new sqlite3.Database(':memory:')
 //Create Database
 db.serialize(() => {
     db.run('CREATE TABLE users (userID INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, role TEXT, password TEXT)')
-    db.run('INSERT INTO users (username, role, password) VALUES ("student1", "student", "$2b$10$H8RhcGaR7YZ72.X5lcUBNOQec39/fw3dCvZo/ocTQK1xQ0i46A2ym")')    
-    db.run('INSERT INTO users (username, role, password) VALUES ("student2", "student", "$2b$10$H8RhcGaR7YZ72.X5lcUBNOQec39/fw3dCvZo/ocTQK1xQ0i46A2ym")') 
-    db.run('INSERT INTO users (username, role, password) VALUES ("alex", "student", "$2b$10$H8RhcGaR7YZ72.X5lcUBNOQec39/fw3dCvZo/ocTQK1xQ0i46A2ym")')    
-    db.run('INSERT INTO users (username, role, password) VALUES ("mari", "student", "$2b$10$H8RhcGaR7YZ72.X5lcUBNOQec39/fw3dCvZo/ocTQK1xQ0i46A2ym")')  
-    db.run('INSERT INTO users (username, role, password) VALUES ("anton", "teacher", "$2b$10$H8RhcGaR7YZ72.X5lcUBNOQec39/fw3dCvZo/ocTQK1xQ0i46A2ym")')  
+    db.run('INSERT INTO users (username, role, password) VALUES ("user1", "student", "$2b$10$H8RhcGaR7YZ72.X5lcUBNOQec39/fw3dCvZo/ocTQK1xQ0i46A2ym")')    
+    db.run('INSERT INTO users (username, role, password) VALUES ("user2", "student", "$2b$10$H8RhcGaR7YZ72.X5lcUBNOQec39/fw3dCvZo/ocTQK1xQ0i46A2ym")')
+    db.run('INSERT INTO users (username, role, password) VALUES ("user3", "teacher", "$2b$10$H8RhcGaR7YZ72.X5lcUBNOQec39/fw3dCvZo/ocTQK1xQ0i46A2ym")')  
     db.run('INSERT INTO users (username, role, password) VALUES ("admin", "admin", "$2b$10$WGc4SaSxe25Hdvh6P/qlXeZsbvnghm1HSZsxSonr/rb1O3j9UUrWy")')
 })
 

@@ -94,7 +94,7 @@ app.get('/teacher', verifyTeacher, async (req, res) => {
 function verifyStudent1(req, res, next) {
    if (current_Role == "") {
       res.redirect("/login/error")      
-   } else if (current_Role == "teacher" || current_Role == "admin" || current_Username == "student1") {
+   } else if (current_Role == "teacher" || current_Role == "admin" || current_Username == "user1") {
       next()
    } else {
       res.redirect("/login/error")
@@ -109,7 +109,7 @@ app.get('/student1', verifyStudent1, async (req, res) => {
 function verifyStudent2(req, res, next) {
    if (current_Role == "") {
       res.redirect("/login/error")      
-   } else if (current_Role == "teacher" || current_Role == "admin" || current_Username == "student2") {
+   } else if (current_Role == "teacher" || current_Role == "admin" || current_Username == "user2") {
       next()
    } else {
       res.redirect("/login/error")
@@ -120,6 +120,7 @@ app.get('/student2', verifyStudent2, async (req, res) => {
    var student = await database.getUserByName(current_Username)
    res.render('student2.ejs', { user: student, req: req })
 })
+
 
 // POST
 app.post('/login', async (req, res) => {
