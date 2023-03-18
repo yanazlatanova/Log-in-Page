@@ -121,7 +121,6 @@ app.get('/student2', verifyStudent2, async (req, res) => {
    res.render('student2.ejs', { user: student, req: req })
 })
 
-
 // POST
 app.post('/login', async (req, res) => {
 
@@ -166,82 +165,3 @@ app.post('/login', async (req, res) => {
 
 })
 
-
-
-
-
-
-/*
-// GET
-app.get('/', async (req, res) => {
-   res.redirect("/login")
-})
-
-app.get('/login', async (req, res) => {
-   res.render('login.ejs')
-})
-
-app.get('/register', async (req, res) => {
-   res.render('register.ejs')
-})
-
-app.get('/admin', async function (req, res) {
-
-   var users = await database.getUsers()
-
-   res.render('admin.ejs', { users: users })
-})
-
-// POST
-app.post('/register', async (req, res) => {
-
-   try {
-      
-      // Encrypt password
-      let encryptedPassword = await bcrypt.hash(req.body.password, 10)
-
-      // Add the new user
-      database.addUser(req.body.username, encryptedPassword)
-
-
-   } catch (error) {
-      console.log(error)
-   }
-
-   req.method = 'GET'
-   res.redirect("/login")
-})
-
-app.post('/login', async (req, res) => {
-
-   try {
-      // Get the first user with the same username
-      var user = await database.getUserByName(req.body.username)
-
-      // Dose user exist and is password correct
-      if (user != null && await bcrypt.compare(req.body.password, user.password)) {
-
-         // Create a signed token
-         const payload = {
-            username: user.username,
-            password: user.password
-         }
-
-         // Create and log the token
-         var token = jwt.sign(payload, process.env.TOKEN)
-         console.log(token)
-
-         // Successful log in
-         res.render('start.ejs', { username: user.username })
-
-      } else {
-         // Failed log in
-
-         res.render('fail.ejs')
-      }
-
-   } catch (error) {
-      console.log(error)
-   }
-
-})*/
