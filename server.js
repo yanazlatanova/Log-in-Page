@@ -18,6 +18,7 @@ app.use(cors({ origin: "*", }))*/
 
 var current_Token = ""
 var current_Username = ""
+var current_Role = ""
 
 // LISTENING ON PORT 
 app.listen(5000, () => { console.log("Server listening on port: " + 5000); })
@@ -25,18 +26,13 @@ app.listen(5000, () => { console.log("Server listening on port: " + 5000); })
 
 function verifyAdmin(req, res, next) {
 
-   // console.log('current_Token ', current_Token);
-   // console.log('Is jwt verified ', jwt.verify(current_Token, process.env.ACCESS_TOKEN_SECRET));
-
-   if (current_Username == "") {
+   if (current_Role == "") {
       res.redirect("/login/error")      
-   } else if (current_Username == "admin") {
+   } else if (current_Role == "admin") {
       next()
    } else {
       res.redirect("/login/error")
    }
-   // console.log("we are in the authentication controll function");
-   // next()   
 }
 
 app.get('/admin', verifyAdmin, async (req, res) => {
@@ -51,7 +47,6 @@ app.get('/', async (req, res) => {
 app.get('/login', async (req, res) => {
    res.render('login.ejs', { error: '' })
 })
-
 
 app.get('/login/error', async (req, res) => {   
    // Print an error msg if the user wants to access pages without logged in
@@ -80,6 +75,53 @@ app.get('/granted', authenticateToken, async (req, res) => {
    res.render('start.ejs')
 })
 
+// Grade 4
+function verifyTeacher(req, res, next) {
+   if (current_Role == "") {
+      res.redirect("/login/error")      
+   } else if (current_Role == "teacher" || current_Role == "admin") {
+      next()
+   } else {
+      res.redirect("/login/error")
+   }
+}
+
+app.get('/teacher', verifyTeacher, async (req, res) => {
+   var teacher = await database.getUserByName(current_Username)
+   res.render('teacher.ejs', { user: teacher})
+})
+
+function verifyStudent1(req, res, next) {
+   if (current_Role == "") {
+      res.redirect("/login/error")      
+   } else if (current_Role == "teacher" || current_Role == "admin" || current_Username == "student1") {
+      next()
+   } else {
+      res.redirect("/login/error")
+   }
+}
+
+app.get('/student1', verifyStudent1, async (req, res) => {
+   var student = await database.getUserByName(current_Username)
+   res.render('student1.ejs', { user: student, req: req })
+})
+
+function verifyStudent2(req, res, next) {
+   if (current_Role == "") {
+      res.redirect("/login/error")      
+   } else if (current_Role == "teacher" || current_Role == "admin" || current_Username == "student2") {
+      next()
+   } else {
+      res.redirect("/login/error")
+   }
+}
+
+app.get('/student2', verifyStudent2, async (req, res) => {
+   var student = await database.getUserByName(current_Username)
+   res.render('student2.ejs', { user: student, req: req })
+})
+
+// POST
 app.post('/login', async (req, res) => {
 
    try {
@@ -101,10 +143,13 @@ app.post('/login', async (req, res) => {
          // Save the user session info
          current_Token = token
          current_Username = user.username
+         current_Role = user.role
 
          // Successful log in
-         if (current_Username == "admin") {
+         if (current_Role == "admin") {
             res.redirect("/admin")
+         } else if (current_Role == "teacher") {
+            res.redirect("/teacher")
          } else {
             res.redirect("/granted")
          }

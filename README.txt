@@ -2,14 +2,15 @@ Start:
 In the terminal run: npm run runServer
 In the browser go to: http://localhost:5000/login
 
-
 Admin Log in
 username: admin
 password: 1234
+* Can access /admin, /granted
 
 Users Log in
 username: alex, mari, anton
 Password: "test" for all users
+* Can access only /granted
 
 Set Up:
 npm install node.js
