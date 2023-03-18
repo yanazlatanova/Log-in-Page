@@ -1,0 +1,17 @@
+<h1>Admin panel</h1>
+
+<h3>All users in the database:</h3>
+<% users.forEach(function(user){ %>
+    <p> 
+        <b>User ID:</b> <%= user.userID %>
+        <br>
+        <b>Username:</b> <%= user.username %>
+        <br>
+        <b>Role:</b> <%= user.role %>
+        <br>
+        <b>Password:</b> <%= user.password %>
+    </p>
+    <% }) %>
+
+        <a href="/login">Go back</a></p>
+        <a href="/register">Register a user</a>
