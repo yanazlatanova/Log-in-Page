@@ -13,6 +13,7 @@ Password for all users: test
 ! Can access only /granted and not /admin
 
 ## Set Up:
+```
 npm install node.js
 npm install express
 npm install ejs
@@ -28,7 +29,7 @@ npm install jsonwebtoken
 
 // Environment variable
 npm install dotenv
-
+```
 
 ## About the JWT:
 - JWT is formated like:
