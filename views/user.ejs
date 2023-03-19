@@ -1,0 +1,21 @@
+<style>
+    body {
+        background-color: lightpink;
+    }
+</style>
+
+<h1>User Profile</h1>
+
+<p> 
+    <b>User ID:</b> <%= user.userID %>
+    <br>
+    <b>Username:</b> <%= user.username %>
+    <br>
+    <b>Role:</b> <%= user.role %>
+    <br>
+    <b>Password:</b> <%= user.password %>
+</p>
+
+<% if (user.role == "teacher") { %> <p> <a href="/teacher"> Go to teacher's page </a></p> <% } %>
+
+<a href="/identify">Log In</a>

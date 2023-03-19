@@ -19,6 +19,7 @@ app.use(cors({ origin: "*", }))*/
 var current_Token = ""
 var current_Username = ""
 var current_Role = ""
+var current_ID = ""
 
 // LISTENING ON PORT 
 app.listen(5000, () => { console.log("Server listening on port: " + 5000); })
@@ -121,6 +122,25 @@ app.get('/student2', verifyStudent2, async (req, res) => {
    res.render('student2.ejs', { user: student, req: req })
 })
 
+app.get('/register', async (req, res) => {
+   res.render('register.ejs')
+})
+
+function verifyUser(req, res, next) {
+   if (current_Role == "") {
+      res.redirect("/identify/error")      
+   } else if (current_Role == "admin" || current_ID == req.params.userID) {
+      next()
+   } else {
+      res.redirect("/identify/error")
+   }
+}
+
+app.get('/users/:userID', verifyUser, async (req, res) => {
+   var user = await database.getUserByID(req.params.userID)
+   res.render('user.ejs', { user: user })
+})
+
 // POST
 app.post('/identify', async (req, res) => {
 
@@ -144,14 +164,14 @@ app.post('/identify', async (req, res) => {
          current_Token = token
          current_Username = user.username
          current_Role = user.role
+         current_ID = user.userID
 
          // Successful log in
          if (current_Role == "admin") {
             res.redirect("/admin")
-         } else if (current_Role == "teacher") {
-            res.redirect("/teacher")
          } else {
-            res.redirect("/granted")
+            res.redirect("/users/" + user.userID)
+            // res.redirect("/granted")
          }
          
       } else {
@@ -163,5 +183,25 @@ app.post('/identify', async (req, res) => {
       console.log(error)
    }
 
+})
+
+
+app.post('/register', async (req, res) => {
+
+   try {
+      
+      // Encrypt password
+      let encryptedPassword = await bcrypt.hash(req.body.password, 10)
+
+      // Add the new user
+      database.addUser(req.body.username, req.body.role, encryptedPassword)
+
+
+   } catch (error) {
+      console.log(error)
+   }
+
+   req.method = 'GET'
+   res.redirect("/identify")
 })
 

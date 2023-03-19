@@ -1,20 +1,19 @@
-<h1>Yana's Log in Form</h1>
+<h1>Register</h1>
 
-<% if (error != "") { %> <p style="color:red"> <%= error %></p> <% } %>
-
-<p>Not a user? <a href="/register">Register</a></p>
-
-<h2>Log in</h2>
-
-<form action="/identify" method="post">
+<form action="/register" method="post">
     <div>
         <label for="username">username</label>
         <input type="text" id="username" name="username">
     </div>
+    
+    <input type="radio" name="role" value="student" /> Student
+    <input type="radio" name="role" value="teacher" /> Teacher
+
     <div>
         <label for="password">password</label>
         <input type="password" id="password" name="password">
     </div>
     <br>
-    <button type="submit">SEND</button>    
+    <button type="submit">SEND</button>
+
 </form>

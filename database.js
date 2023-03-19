@@ -43,5 +43,27 @@ async function getUserByName(username) {
     }
 }
 
-module.exports = { getUsers, getUserByName };
+async function getUserByID(id) {
+    try {
+        let users = await getUsers()
+        let user = null
+
+        users.forEach(function (row) {
+            if (row.userID == id) {          
+                user = row
+            }
+        }); 
+
+        return user   
+
+    } catch (error) {
+        console.log("An error occured", err)
+    }
+}
+
+const addUser = (username, role, password) => {
+    db.run(`INSERT INTO users (username, role, password) VALUES ("${username}", "${role}", "${password}")`);
+}
+
+module.exports = { getUsers, getUserByName, addUser, getUserByID };
 
